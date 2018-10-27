@@ -16,5 +16,7 @@ defmodule Sling.User do
     struct
     |> cast(params, [:username, :email, :password_hash])
     |> validate_required([:username, :email, :password_hash])
+    |> unique_constraint(:username)
+    |> unique_constraint(:email)
   end
 end
