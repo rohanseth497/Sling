@@ -1,12 +1,11 @@
 defmodule Sling.GuardianSerializer do
-  @behaviour Guardian.Serializer
+  use Guardian, otp_app: :sling
 
-  alias Sling.Repo
-  alias Sling.User
+  def subject_for_token(resource, _claims) do
+    {:ok, to_string(resource.id)}
+  end
 
-  def for_token(user = %User{}), do: {:ok, "User:#{user.id}"}
-  def for_token(_), do: {:error, "Unknown resource type"}
-
-  def from_token("User:" <> id), do: {:ok, Repo.get(User, String.to_integer(id))}
-  def from_token(_), do: {:error, "Unknown resource type"}
+  def resource_from_claims(claims) do
+    {:ok, %{id: claims["sub"]}}
+  end
 end
