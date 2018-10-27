@@ -1,13 +1,15 @@
 import React from 'react';
-import { BrowserRouter, Match, Miss } from 'react-router';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Home from '../Home';
 import NotFound from '../NotFound';
 
 const App = () => (
-  <BrowserRouter>
-    <Match exactly pattern="/" component={Home} />
-    <Miss component={NotFound} />
-  </BrowserRouter>
+  <Router>
+    <div>
+      <Route exactly path="/" component={Home} />
+      <Route path="*" component={NotFound} />
+    </div>
+  </Router>
 );
 
 export default App;
