@@ -15,8 +15,8 @@ defmodule Sling.User do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:username, :email, :password_hash])
-    |> validate_required([:username, :email, :password_hash])
+    |> cast(params, [:username, :email])
+    |> validate_required([:username, :email])
     |> unique_constraint(:username)
     |> unique_constraint(:email)
   end
@@ -31,9 +31,10 @@ defmodule Sling.User do
 
   defp put_password_hash(changeset) do
     case changeset do
-      %Ecto.Changeset{valid? :true, changes: %{password: password}} ->
+      %Ecto.Changeset{valid?: true, changes: %{password: password}} ->
         put_change(changeset, :password_hash, Comeonin.Bcrypt.hashpwsalt(password))
-        _ -> changeset
+      _ ->
+        changeset
     end
   end
 end
