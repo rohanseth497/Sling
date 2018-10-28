@@ -20,4 +20,13 @@ defmodule Sling.UserController do
         |> render(Sling.ChangesetView, "error.json", changeset: changeset)
     end
   end
+
+  def delete(conn, _params) do
+    jwt = Guardian.Plug.current_token(conn)
+    Guardian.revoke!(jwt)
+
+    conn
+    |> put_status(:ok)
+    |> render("delete.json")
+  end
 end

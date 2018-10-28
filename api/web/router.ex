@@ -10,6 +10,6 @@ defmodule Sling.Router do
   scope "/api", Sling do
     pipe_through :api
 
-    # post "/sessions",
+    post "/sessions", SessionController, :create
   end
 end
