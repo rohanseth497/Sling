@@ -46,4 +46,10 @@ defmodule Sling.UserController do
         |> render("forbidden.json", error: "Not authenticated")
     end
   end
+
+  def unauthenticated(conn, _params) do
+    conn
+    |> put_status(:forbidden)
+    |> render(Sling.SessionView, "forbidden.json", error: "Not Authenticated")
+  end
 end
