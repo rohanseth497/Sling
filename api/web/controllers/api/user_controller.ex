@@ -29,4 +29,21 @@ defmodule Sling.UserController do
     |> put_status(:ok)
     |> render("delete.json")
   end
+
+  def refresh(conn, _params) do
+    user = Guardian.Plug.current_resource(conn)
+    jwt = Guardian.Plug.current_token(conn)
+    {:ok, claims} = Guardian.PLug.claims(conn)
+
+    case Guardian.refresh!(jwt, claims, %{ttl: {30, :days}}) do
+      {:ok, new_jwt, _new_claims} ->
+        conn
+        |> put_status(:ok)
+        |> render("show.json", user: user, jwt: new_jwt)
+      {:error, _reason} ->
+        conn
+        |> put_status(:unauthorized)
+        |> render("forbidden.json", error: "Not authenticated")
+    end
+  end
 end
