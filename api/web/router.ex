@@ -11,5 +11,7 @@ defmodule Sling.Router do
     pipe_through :api
 
     post "/sessions", SessionController, :create
+    delete "/sessions", SessionController, :delete
+    post "/sessions/refresh", SessionController, :refresh
   end
 end
