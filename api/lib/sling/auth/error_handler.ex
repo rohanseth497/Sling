@@ -1,4 +1,4 @@
-defmodule Sling.AuthErrorHandler do
+defmodule Sling.Auth.ErrorHandler do
   import Plug.Conn
 
   def auth_error(conn, {type, _reason}, _opts) do

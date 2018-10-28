@@ -1,8 +1,8 @@
-defmodule Sling.Pipeline do
+defmodule Sling.Auth.Pipeline do
   use Guardian.Plug.Pipeline,
     otp_app: :sling,
-    error_handler: Sling.AuthErrorHandler,
-    module: Sling.GuardianSerializer
+    error_handler: Sling.Auth.ErrorHandler,
+    module: Sling.Auth.Guardian
 
 
   plug Guardian.Plug.VerifySession, claims: %{"typ" => "access"}

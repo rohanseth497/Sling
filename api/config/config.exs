@@ -23,7 +23,7 @@ config :logger, :console,
   metadata: [:request_id]
 
 
-config :sling, Sling.GuardianSerializer,
+config :sling, Sling.Auth.Guardian,
   issuer: "sling",
   ttl: {30, :days},
   verify_issuer: true,

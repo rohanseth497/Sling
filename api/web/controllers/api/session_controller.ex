@@ -1,10 +1,12 @@
 defmodule Sling.SessionController do
   use Sling.Web, :controller
 
+  alias Sling.Auth.Guardian
+
   def create(conn, params) do
     case authenticate(params) do
       {:ok, user} ->
-        new_conn = Guardian.Plug.sign_in(conn, user, :access)
+        new_conn = Guardian.Plug.sign_in(conn, user)
         jwt = Guardian.Plug.current_token(new_conn)
 
         new_conn

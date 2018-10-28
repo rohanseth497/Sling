@@ -1,7 +1,7 @@
 defmodule Sling.UserController do
   use Sling.Web, :controller
 
-  alias Sling.GuardianSerializer
+  alias Sling.Auth.Guardian
   alias Sling.User
 
   def create(conn, params) do
@@ -10,8 +10,8 @@ defmodule Sling.UserController do
 
     case Repo.insert(changeset) do
       {:ok, user} ->
-        new_conn = GuardianSerializer.Plug.sign_in(conn, user)
-        jwt = GuardianSerializer.Plug.current_token(new_conn)
+        new_conn = Guardian.Plug.sign_in(conn, user)
+        jwt = Guardian.Plug.current_token(new_conn)
 
         new_conn
         |> put_status(:created)

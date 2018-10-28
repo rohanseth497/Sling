@@ -1,4 +1,4 @@
-defmodule Sling.GuardianSerializer do
+defmodule Sling.Auth.Guardian do
   use Guardian, otp_app: :sling
 
   def subject_for_token(resource, _claims) do
