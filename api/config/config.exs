@@ -26,7 +26,8 @@ config :logger, :console,
 config :sling, Sling.GuardianSerializer,
   issuer: "sling",
   ttl: {30, :days},
-  verify_issuer: true
+  verify_issuer: true,
+  secret_key: "LO25OYss2qeO8JWJ5yKbDGxfg4H3ELUh6kHaKnbHUirY5fVParPV4CI8ew5GdMSW"
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

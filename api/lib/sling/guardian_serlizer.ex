@@ -2,6 +2,8 @@ defmodule Sling.GuardianSerializer do
   use Guardian, otp_app: :sling
 
   def subject_for_token(resource, _claims) do
+    IO.puts "In subject for token"
+    IO.inspect(resource)
     {:ok, to_string(resource.id)}
   end
 
