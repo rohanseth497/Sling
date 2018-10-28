@@ -52,4 +52,20 @@ defmodule Sling.UserController do
     |> put_status(:forbidden)
     |> render(Sling.SessionView, "forbidden.json", error: "Not Authenticated")
   end
+
+  defp authenticate(%{"email" => email, "password" => password}) do
+    user = Repo.get_by(Sling.User, email: String.downcase(email))
+
+    case check_password(user, password) do
+      true -> {:ok, user}
+      _ -> :error
+    end
+  end
+
+  defp check_password(user, password) do
+    case user do
+      nil -> Comeonin.Bcrypt.dummy_checkpw()
+      _ -> Comeonin.Bcypt.checkpw(password, user.password_hash)
+    end
+  end
 end
