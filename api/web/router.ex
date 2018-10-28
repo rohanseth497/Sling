@@ -1,10 +1,6 @@
 defmodule Sling.Router do
   use Sling.Web, :router
 
-  pipeline :auth do
-    plug Sling.Auth.Pipeline
-  end
-
   pipeline :api do
     plug :accepts, ["json"]
     plug Sling.Auth.Pipeline
