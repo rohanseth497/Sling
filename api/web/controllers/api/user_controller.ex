@@ -13,10 +13,6 @@ defmodule Sling.UserController do
         new_conn = GuardianSerializer.Plug.sign_in(conn, user)
         jwt = GuardianSerializer.Plug.current_token(new_conn)
 
-        IO.puts "++++"
-        IO.inspect(new_conn)
-
-
         new_conn
         |> put_status(:created)
         |> render(Sling.SessionView, "show.json", user: user, jwt: jwt)
