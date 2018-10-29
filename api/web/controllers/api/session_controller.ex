@@ -9,10 +9,6 @@ defmodule Sling.SessionController do
         new_conn = Guardian.Plug.sign_in(conn, user)
         jwt = Guardian.Plug.current_token(new_conn)
 
-        user1 = Guardian.Plug.current_resource(conn)
-        IO.inspect(user1)
-        IO.inspect(new_conn)
-
         new_conn
         |> put_status(:created)
         |> render("show.json", user: user, jwt: jwt)
@@ -25,7 +21,6 @@ defmodule Sling.SessionController do
 
   def delete(conn, _) do
     jwt = Guardian.Plug.current_token(conn)
-    IO.inspect(jwt)
     Guardian.revoke(jwt)
 
     conn
@@ -38,9 +33,7 @@ defmodule Sling.SessionController do
     user = Guardian.Plug.current_resource(conn)
     jwt = Guardian.Plug.current_token(conn)
 
-    # {:ok, claims} = Guardian.Plug.claims(conn)
-
-    case Guardian.refresh(user, jwt, %{ttl: {30, :days}}) do
+    case Guardian.refresh(jwt) do
       {:ok, new_jwt, _new_claims} ->
         conn
         |> put_status(:ok)
