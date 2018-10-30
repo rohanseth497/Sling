@@ -40,8 +40,6 @@ defmodule Sling.SessionController do
         |> put_status(:ok)
         |> render("show.json", user: user, jwt: new_token)
       {:error, reason} ->
-        IO.puts "Reason"
-        IO.inspect(reason)
         conn
         |> put_status(:unauthorized)
         |> render("forbidden.json", error: "Not authenticated")
