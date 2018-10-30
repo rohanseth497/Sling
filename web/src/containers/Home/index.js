@@ -6,9 +6,10 @@ import { logout } from '../../actions/Session';
 import Navbar from '../../components/Navbar';
 
 class Home extends React.Component {
-
-  
-  handleLogout = () => this.props.logout()
+  handleLogout = () => {
+    const { logoutUser } = this.props;
+    logoutUser();
+  }
 
   render() {
     const { currentUser, isAuthenticated } = this.props;
@@ -20,27 +21,32 @@ class Home extends React.Component {
           <li><Link to="/login">Login</Link></li>
           <li><Link to="/signup">Signup</Link></li>
         </ul>
-        {isAuthenticated &&
+        {isAuthenticated && (
           <div>
             <span>{currentUser.username}</span>
             <button type="button" onClick={this.handleLogout}>Logout</button>
           </div>
-        }
+        )}
       </div>
     );
   }
 }
 
+Home.defaultProps = {
+  isAuthenticated: false,
+  currentUser: {},
+};
+
 Home.propTypes = {
-  logout: PropTypes.func.isRequired,
-  currentUser: PropTypes.object,
+  logoutUser: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
-}
+  currentUser: PropTypes.shape,
+};
 
 export default connect(
   state => ({
     isAuthenticated: state.session.isAuthenticated,
-    currentUser: state.session.currentUser
+    currentUser: state.session.currentUser,
   }),
-  { logout }
+  { logoutUser: logout },
 )(Home);

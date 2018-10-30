@@ -7,10 +7,14 @@ import Navbar from '../../components/Navbar';
 
 class Login extends React.Component {
   static contextTypes = {
-    router: PropTypes.object,
+    router: PropTypes.shape,
   }
 
-  handleLogin = data => this.props.login(data, this.context.router);
+  handleLogin = (data) => {
+    const { loginUser } = this.props;
+    const { router } = this.context;
+    loginUser(data, router);
+  }
 
   render() {
     return (
@@ -23,10 +27,10 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
-  login: PropTypes.func.isRequired,
+  loginUser: PropTypes.func.isRequired,
 };
 
 export default connect(
   null,
-  { login },
+  { loginUser: login },
 )(Login);

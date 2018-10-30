@@ -40,3 +40,15 @@ export const logout = (router) => {
       // router.transitionTo('/login');
     });
 };
+
+export const authenticate = () => {
+  return dispatch => api.post('/sessions/refresh')
+    .then((resp) => {
+      setCurrentUser(dispatch, resp);
+    })
+    .catch((err) => {
+      console.log(err);
+      localStorage.removeItem('token');
+      window.location = '/login';
+    });
+};

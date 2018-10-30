@@ -7,10 +7,14 @@ import SignupForm from '../../components/SignupForm';
 
 class Signup extends React.Component {
   static contextTypes = {
-    router: PropTypes.object,
+    router: PropTypes.shape,
   }
 
-  handleSignup = data => this.props.signup(data, this.context.router)
+  handleSignup = (data) => {
+    const { signUpUser } = this.props;
+    const { router } = this.context;
+    signUpUser(data, router);
+  }
 
   render() {
     return (
@@ -23,10 +27,10 @@ class Signup extends React.Component {
 }
 
 Signup.propTypes = {
-  signup: PropTypes.func.isRequired,
+  signUpUser: PropTypes.func.isRequired,
 };
 
 export default connect(
   null,
-  { signup },
+  { signUpUser: signup },
 )(Signup);
