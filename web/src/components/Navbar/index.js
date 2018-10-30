@@ -23,11 +23,12 @@ const styles = StyleSheet.create({
       textDecoration: 'none',
     },
   },
-})
+});
 
-const Navbar = () =>
+const Navbar = () => (
   <nav className={css(styles.navbar)}>
     <Link to="/" className={css(styles.link)}>Sling</Link>
-  </nav>;
+  </nav>
+);
 
 export default Navbar;

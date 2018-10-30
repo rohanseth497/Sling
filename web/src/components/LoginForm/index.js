@@ -2,6 +2,7 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { css, StyleSheet } from 'aphrodite';
+import PropTypes from 'prop-types';
 import Input from '../Input';
 
 const styles = StyleSheet.create({
@@ -12,16 +13,11 @@ const styles = StyleSheet.create({
   },
 });
 
-type Props = {
-  onSubmit: () => void,
-  handleSubmit: () => void,
-  submitting: boolean,
-}
-
-class LoginForm extends Component {
-  props: Props
-
-  handleSubmit = data => this.props.onSubmit(data);
+class LoginForm extends React.Component {
+  handleSubmit = (data) => {
+    const { onSubmit } = this.props;
+    onSubmit(data);
+  }
 
   render() {
     const { handleSubmit, submitting } = this.props;
@@ -49,6 +45,16 @@ class LoginForm extends Component {
     );
   }
 }
+
+LoginForm.defaultProps = {
+  submitting: false,
+};
+
+LoginForm.propTypes = {
+  submitting: PropTypes.bool,
+  onSubmit: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+};
 
 const validate = (values) => {
   const errors = {};

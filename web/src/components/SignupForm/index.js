@@ -3,6 +3,7 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { css, StyleSheet } from 'aphrodite';
+import PropTypes from 'prop-types';
 import Input from '../Input';
 
 
@@ -14,16 +15,11 @@ const styles = StyleSheet.create({
   },
 });
 
-type Props = {
-  onSubmit: () => void,
-  submitting: boolean,
-  handleSubmit: () => void,
-}
-
 class SignupForm extends React.Component {
-  props: Props
-
-  handleSubmit = data => this.props.onSubmit(data);
+  handleSubmit = (data) => {
+    const { onSubmit } = this.props;
+    onSubmit(data);
+  }
 
   render() {
     const { handleSubmit, submitting } = this.props;
@@ -70,6 +66,16 @@ class SignupForm extends React.Component {
     );
   }
 }
+
+SignupForm.defaultProps = {
+  submitting: false,
+};
+
+SignupForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  submitting: PropTypes.bool,
+  handleSubmit: PropTypes.func.isRequired,
+};
 
 const validate = (values) => {
   const errors = {};

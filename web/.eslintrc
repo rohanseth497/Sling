@@ -6,7 +6,12 @@
     "react/jsx-filename-extension": 0,
     "import/prefer-default-export": 0,
     "react/no-unused-prop-types": 0,
-    "camelcase": 0
+    "camelcase": 0,
+    "jsx-a11y/label-has-for": [ "error", {
+      "required": {
+        "some": [ "nesting", "id"  ]
+      }
+    }]
   },
   "globals": {
     "fetch": true,

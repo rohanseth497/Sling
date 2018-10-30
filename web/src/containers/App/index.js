@@ -12,7 +12,8 @@ class App extends React.Component {
   componentDidMount() {
     const token = localStorage.getItem('token');
     if (token) {
-      this.props.authenticate();
+      const { authenticateUser } = this.props;
+      authenticateUser();
     }
   }
 
@@ -30,7 +31,11 @@ class App extends React.Component {
   }
 }
 
+App.propTypes = {
+  authenticateUser: PropTypes.func.isRequired,
+};
+
 export default connect(
   null,
-  { authenticate },
+  { authenticateUser: authenticate },
 )(App);

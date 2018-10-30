@@ -1,10 +1,10 @@
 import { reset } from 'redux-form';
-import { Socket } from 'phoenix';
-import { AUTHENTICATION_SUCCESS, SHOW_ALERT } from './action_types';
+// import { Socket } from 'phoenix';
+import { AUTHENTICATION_SUCCESS, SHOW_ALERT, LOGOUT } from './action_types';
 import api from '../api';
 
-const API_URL = process.env.REACT_APP_API_URL;
-const WEBSOCKET_URL = API_URL.replace(/(https|http)/, 'ws').replace('/api', '');
+// const API_URL = process.env.REACT_APP_API_URL;
+// const WEBSOCKET_URL = API_URL.replace(/(https|http)/, 'ws').replace('/api', '');
 
 const setCurrentUser = (dispatch, response) => {
   localStorage.setItem('token', JSON.stringify(response.meta.token));
@@ -16,7 +16,7 @@ export const login = (data, router) => {
     .then((resp) => {
       setCurrentUser(dispatch, resp);
       dispatch(reset('login'));
-      // router.
+      router.transitionTo('/login');
     })
     .catch((err) => {
       dispatch({ type: SHOW_ALERT, message: err.message });
@@ -28,7 +28,7 @@ export const signup = (data, router) => {
     .then((response) => {
       setCurrentUser(dispatch, response);
       dispatch(reset('signup'));
-      // router.transitionTo('/');
+      router.transitionTo('/');
     });
 };
 
@@ -36,8 +36,8 @@ export const logout = (router) => {
   return dispatch => api.delete('/sessions')
     .then(() => {
       localStorage.removeItem('token');
-      dispatch({ type: 'LOGOUT' });
-      // router.transitionTo('/login');
+      dispatch({ type: LOGOUT });
+      router.transitionTo('/login');
     });
 };
 

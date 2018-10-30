@@ -11,7 +11,7 @@ const headers = () => {
 };
 
 const parseResponse = (response) => {
-  return response.json().then((json) => {
+  response.json().then((json) => {
     if (!response.ok) {
       return Promise.reject(json);
     }
@@ -21,7 +21,7 @@ const parseResponse = (response) => {
 
 const queryString = (params) => {
   const query = Object.keys(params)
-    .map((k) => `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`)
+    .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`)
     .join('&');
   return `${query.length ? '?' : ''}${query}`;
 };
