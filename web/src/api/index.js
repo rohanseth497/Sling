@@ -10,7 +10,7 @@ const headers = () => {
   };
 };
 
-const parseResponse = (response) => { 
+const parseResponse = (response) => {
   return response.json().then((json) => {
     if (!response.ok) {
       return Promise.reject(json);
