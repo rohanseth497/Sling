@@ -30,10 +30,6 @@ class App extends React.Component {
   }
 }
 
-App.propTypes = {
-  authenticate: ,
-}
-
 export default connect(
   null,
   { authenticate },

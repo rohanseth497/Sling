@@ -1,6 +1,6 @@
 import { reset } from 'redux-form';
 import { Socket } from 'phoenix';
-import { AUTHENTICATION_SUCCESS } from './action_types';
+import { AUTHENTICATION_SUCCESS, SHOW_ALERT } from './action_types';
 import api from '../api';
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -9,7 +9,7 @@ const WEBSOCKET_URL = API_URL.replace(/(https|http)/, 'ws').replace('/api', '');
 const setCurrentUser = (dispatch, response) => {
   localStorage.setItem('token', JSON.stringify(response.meta.token));
   dispatch({ type: AUTHENTICATION_SUCCESS, response });
-}
+};
 
 export const login = (data, router) => {
   return dispatch => api.post('/sessions', data)
@@ -17,6 +17,9 @@ export const login = (data, router) => {
       setCurrentUser(dispatch, resp);
       dispatch(reset('login'));
       // router.
+    })
+    .catch((err) => {
+      dispatch({ type: SHOW_ALERT, message: err.message });
     });
 };
 
