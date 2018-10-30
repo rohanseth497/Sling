@@ -12,7 +12,7 @@ type Props = {
 
 const Input = ({
   input, label, type, placeholder, style, meta,
-  }: Props) =>
+}: Props) =>
   <div style={{ marginBottom: '1rem' }}>
     {label && <label htmlFor={input.name}>{label}</label>}
     <input

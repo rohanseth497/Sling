@@ -23,11 +23,10 @@ defmodule Sling.SessionController do
     jwt = Guardian.Plug.current_token(conn)
     case Guardian.revoke(jwt) do
       {:ok, _claims} ->
-        IO.inspect()
         conn
         |> put_status(:ok)
         |> render("delete.json")
-      {:error, reason} ->
+      {:error, _reason} ->
         conn
         |> put_status(:unauthorized)
         |> render("forbidden.json", error: "Something happend wrong!")
@@ -41,11 +40,11 @@ defmodule Sling.SessionController do
 
 
     case Guardian.refresh(jwt) do
-      {:ok, {old_token, old_claims}, {new_token, new_claims}} ->
+      {:ok, {_old_token, _old_claims}, {new_token, _new_claims}} ->
         conn
         |> put_status(:ok)
         |> render("show.json", user: user, jwt: new_token)
-      {:error, reason} ->
+      {:error, _reason} ->
         conn
         |> put_status(:unauthorized)
         |> render("forbidden.json", error: "Not authenticated")
