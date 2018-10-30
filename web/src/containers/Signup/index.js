@@ -22,6 +22,10 @@ class Signup extends React.Component {
   }
 }
 
+Signup.propTypes = {
+  signup: PropTypes.func.isRequired,
+};
+
 export default connect(
   null,
   { signup },
