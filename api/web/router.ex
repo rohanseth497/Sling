@@ -3,9 +3,10 @@ defmodule Sling.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+
+    # plug Guardian.Plug.VerifyHeader, realm: "Bearer"
+    # plug Guardian.Plug.LoadResource, allow_blank: true
     plug Sling.Auth.Pipeline
-    plug Guardian.Plug.VerifyHeader, realm: "Bearer"
-    plug Guardian.Plug.LoadResource, allow_blank: true
   end
 
   scope "/api", Sling do

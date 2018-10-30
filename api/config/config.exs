@@ -24,8 +24,8 @@ config :logger, :console,
 
 
 config :sling, Sling.Auth.Guardian,
-  issuer: "sling",
-  ttl: {30, :days},
+  issuer: "Sling",
+  ttl: {24, :hours},
   verify_issuer: true,
   secret_key: "LO25OYss2qeO8JWJ5yKbDGxfg4H3ELUh6kHaKnbHUirY5fVParPV4CI8ew5GdMSW"
 

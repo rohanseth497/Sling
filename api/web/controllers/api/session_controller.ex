@@ -33,12 +33,15 @@ defmodule Sling.SessionController do
     user = Guardian.Plug.current_resource(conn)
     jwt = Guardian.Plug.current_token(conn)
 
+
     case Guardian.refresh(jwt) do
-      {:ok, new_jwt, _new_claims} ->
+      {:ok, {old_token, old_claims}, {new_token, new_claims}} ->
         conn
         |> put_status(:ok)
-        |> render("show.json", user: user, jwt: new_jwt)
-      {:error, _reason} ->
+        |> render("show.json", user: user, jwt: new_token)
+      {:error, reason} ->
+        IO.puts "Reason"
+        IO.inspect(reason)
         conn
         |> put_status(:unauthorized)
         |> render("forbidden.json", error: "Not authenticated")

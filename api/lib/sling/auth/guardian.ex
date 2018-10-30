@@ -8,13 +8,11 @@ defmodule Sling.Auth.Guardian do
     {:ok, to_string(resource.id)}
   end
 
-  def subject_for_token(_, _) do
-    {:error, :reason_for_error}
-  end
+  # def subject_for_token(_, _) do
+  #   {:error, :reason_for_error}
+  # end
 
   def resource_from_claims(claims) do
-    IO.puts "Claims"
-    IO.inspect(claims)
     id = claims["sub"]
     user = Repo.get(User, String.to_integer(id))
     {:ok, user}
