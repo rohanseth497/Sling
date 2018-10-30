@@ -34,7 +34,6 @@ export default {
     })
       .then(parseResponse);
   },
- 
   post(url, data) {
     const body = JSON.stringify(data);
 
@@ -42,6 +41,23 @@ export default {
       method: 'POST',
       headers: headers(),
       body,
+    })
+      .then(parseResponse);
+  },
+  patch(url, data) {
+    const body = JSON.stringify(data);
+
+    return fetch(`${API}${url}`, {
+      method: 'PATCH',
+      headers: headers(),
+      body,
+    })
+      .then(parseResponse);
+  },
+  delete(url) {
+    return fetch(`${API}${url}`, {
+      method: 'DELETE',
+      headers: headers(),
     })
       .then(parseResponse);
   },

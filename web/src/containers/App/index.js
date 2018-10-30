@@ -31,7 +31,7 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  authenticate: () => void,
+  authenticate: ,
 }
 
 export default connect(
