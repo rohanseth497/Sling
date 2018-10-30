@@ -21,11 +21,17 @@ defmodule Sling.SessionController do
 
   def delete(conn, _) do
     jwt = Guardian.Plug.current_token(conn)
-    Guardian.revoke(jwt)
-
-    conn
-    |> put_status(:ok)
-    |> render("delete.json")
+    case Guardian.revoke(jwt) do
+      {:ok, _claims} ->
+        IO.inspect()
+        conn
+        |> put_status(:ok)
+        |> render("delete.json")
+      {:error, reason} ->
+        conn
+        |> put_status(:unauthorized)
+        |> render("forbidden.json", error: "Something happend wrong!")
+    end
   end
 
   def refresh(conn, _params) do

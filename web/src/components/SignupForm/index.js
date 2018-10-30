@@ -1,7 +1,9 @@
+// @flow
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { css, StyleSheet } from 'aphrodite';
+import Input from '';
 
 
 const styles = StyleSheet.create({
@@ -18,7 +20,7 @@ type Props = {
   handleSubmit: () => void,
 }
 
-class SignupForm extends Component {
+class SignupForm extends React.Component {
   props: Props
 
   handleSubmit = data => this.props.onSubmit(data);

@@ -1,0 +1,14 @@
+[ignore]
+./build
+./public
+./scripts
+
+[include]
+./src
+
+[libs]
+
+[options]
+
+"flow.useNPMPackagedFlow": true,
+"javascript.validate.enable": false,
