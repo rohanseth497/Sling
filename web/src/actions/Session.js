@@ -11,33 +11,30 @@ const setCurrentUser = (dispatch, response) => {
   dispatch({ type: AUTHENTICATION_SUCCESS, response });
 };
 
-export const login = (data, router) => {
+export const login = (data) => {
   return dispatch => api.post('/sessions', data)
     .then((resp) => {
       setCurrentUser(dispatch, resp);
       dispatch(reset('login'));
-      router.transitionTo('/login');
     })
     .catch((err) => {
       dispatch({ type: SHOW_ALERT, message: err.message });
     });
 };
 
-export const signup = (data, router) => {
+export const signup = (data) => {
   return dispatch => api.post('/users', data)
     .then((response) => {
       setCurrentUser(dispatch, response);
       dispatch(reset('signup'));
-      router.transitionTo('/');
     });
 };
 
-export const logout = (router) => {
+export const logout = () => {
   return dispatch => api.delete('/sessions')
     .then(() => {
       localStorage.removeItem('token');
       dispatch({ type: LOGOUT });
-      router.transitionTo('/login');
     });
 };
 

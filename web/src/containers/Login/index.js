@@ -12,8 +12,7 @@ class Login extends React.Component {
 
   handleLogin = (data) => {
     const { loginUser } = this.props;
-    const { router } = this.context;
-    loginUser(data, router);
+    loginUser(data);
   }
 
   render() {
