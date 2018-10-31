@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { authenticate } from '../../actions/Session';
+import { authenticate, unauthenticate } from '../../actions/Session';
 import Home from '../Home';
 import NotFound from '../NotFound';
 import Login from '../Login';
@@ -14,6 +14,9 @@ class App extends React.Component {
     if (token) {
       const { authenticateUser } = this.props;
       authenticateUser();
+    } else {
+      const { unauthenticateUser } = this.props;
+      unauthenticateUser();
     }
   }
 
@@ -31,11 +34,22 @@ class App extends React.Component {
   }
 }
 
+App.defaultProps = {
+  isAuthenticated: false,
+  willAuthenticate: false,
+};
+
 App.propTypes = {
   authenticateUser: PropTypes.func.isRequired,
+  unauthenticateUser: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+  willAuthenticate: PropTypes.bool,
 };
 
 export default connect(
-  null,
-  { authenticateUser: authenticate },
+  state => ({
+    isAuthenticated: state.session.isAuthenticated,
+    willAuthenticate: state.session.willAuthenticate,
+  }),
+  { authenticateUser: authenticate, unauthenticateUser: unauthenticate },
 )(App);

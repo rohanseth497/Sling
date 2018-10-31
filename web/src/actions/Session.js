@@ -1,6 +1,12 @@
 import { reset } from 'redux-form';
 // import { Socket } from 'phoenix';
-import { AUTHENTICATION_SUCCESS, SHOW_ALERT, LOGOUT } from './action_types';
+import {
+  AUTHENTICATION_SUCCESS,
+  SHOW_ALERT,
+  LOGOUT,
+  AUTHENTICATION_REQUEST,
+  AUTHENTICATION_FAILURE,
+} from './action_types';
 import api from '../api';
 
 // const API_URL = process.env.REACT_APP_API_URL;
@@ -39,13 +45,22 @@ export const logout = () => {
 };
 
 export const authenticate = () => {
-  return dispatch => api.post('/sessions/refresh')
-    .then((resp) => {
-      setCurrentUser(dispatch, resp);
-    })
-    .catch((err) => {
-      console.log(err);
-      localStorage.removeItem('token');
-      window.location = '/login';
-    });
+  return (dispatch) => {
+    dispatch({ type: AUTHENTICATION_REQUEST });
+    return api.post('/sessions/refresh')
+      .then((resp) => {
+        setCurrentUser(dispatch, resp);
+      })
+      .catch((err) => {
+        console.log(err);
+        localStorage.removeItem('token');
+        window.location = '/login';
+      });
+  };
+};
+
+export const unauthenticate = () => {
+  return (dispatch) => {
+    dispatch({ type: AUTHENTICATION_FAILURE });
+  };
 };
