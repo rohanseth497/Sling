@@ -10,15 +10,6 @@ const headers = () => {
   };
 };
 
-const parseResponse = (response) => {
-  response.json().then((json) => {
-    if (!response.ok) {
-      return Promise.reject(json);
-    }
-    return json;
-  });
-};
-
 const queryString = (params) => {
   const query = Object.keys(params)
     .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`)
@@ -32,7 +23,7 @@ export default {
       method: 'GET',
       headers: headers(),
     })
-      .then(parseResponse);
+      .then(response => response.json());
   },
   post(url, data) {
     const body = JSON.stringify(data);
@@ -42,7 +33,7 @@ export default {
       headers: headers(),
       body,
     })
-      .then(parseResponse);
+      .then(response => response.json());
   },
   patch(url, data) {
     const body = JSON.stringify(data);
@@ -52,13 +43,13 @@ export default {
       headers: headers(),
       body,
     })
-      .then(parseResponse);
+      .then(response => response.json());
   },
   delete(url) {
     return fetch(`${API}${url}`, {
       method: 'DELETE',
       headers: headers(),
     })
-      .then(parseResponse);
+      .then(response => response.json());
   },
 };
