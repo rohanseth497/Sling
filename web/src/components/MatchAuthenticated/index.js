@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Redirect } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const MatchAuthenticated = ({
@@ -9,9 +9,9 @@ const MatchAuthenticated = ({
   willAuthenticate,
   component: Component,
 }) => (
-  <Router
-    pattern={pattern}
-    exactly={exactly}
+  <Route
+    path={pattern}
+    exact={exactly}
     render={(props) => {
       if (isAuthenticated) { return <Component {...props} />; }
       if (willAuthenticate) { return null; }
@@ -23,7 +23,7 @@ const MatchAuthenticated = ({
 
 MatchAuthenticated.defaultProps = {
   pattern: '',
-  component: React.createElement('div'),
+  component: () => {},
   exactly: false,
   isAuthenticated: false,
   willAuthenticate: false,
@@ -31,7 +31,7 @@ MatchAuthenticated.defaultProps = {
 
 MatchAuthenticated.propTypes = {
   pattern: PropTypes.string,
-  component: PropTypes.element,
+  component: PropTypes.func,
   exactly: PropTypes.bool,
   isAuthenticated: PropTypes.bool,
   willAuthenticate: PropTypes.bool,

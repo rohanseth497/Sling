@@ -7,6 +7,8 @@ import Home from '../Home';
 import NotFound from '../NotFound';
 import Login from '../Login';
 import Signup from '../Signup';
+import MatchAuthenticated from '../../components/MatchAuthenticated';
+import RedirectAuthenticated from '../../components/RedirectAuthenticated';
 
 class App extends React.Component {
   componentDidMount() {
@@ -21,13 +23,18 @@ class App extends React.Component {
   }
 
   render() {
+    const { isAuthenticated, willAuthenticate } = this.props;
+    const authProps = { isAuthenticated, willAuthenticate };
+
     return (
       <Router>
         <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={Signup} />
-          <Route path="*" component={NotFound} />
+          <div style={{ display: 'flex', flex: '1' }}>
+            <MatchAuthenticated exactly pattern="/" component={Home} {...authProps} />
+            <RedirectAuthenticated pattern="/login" component={Login} {...authProps} />
+            <RedirectAuthenticated pattern="/signup" component={Signup} {...authProps} />
+            {/* <Route path="*" component={NotFound} /> */}
+          </div>
         </Switch>
       </Router>
     );
@@ -51,5 +58,8 @@ export default connect(
     isAuthenticated: state.session.isAuthenticated,
     willAuthenticate: state.session.willAuthenticate,
   }),
-  { authenticateUser: authenticate, unauthenticateUser: unauthenticate },
+  {
+    authenticateUser: authenticate,
+    unauthenticateUser: unauthenticate,
+  },
 )(App);

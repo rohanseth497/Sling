@@ -16,6 +16,7 @@ defmodule Sling.Router do
   end
 
   pipeline :login_required do
+    plug Sling.Auth.Pipeline
     plug Guardian.Plug.EnsureAuthenticated
   end
 
