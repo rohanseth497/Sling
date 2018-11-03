@@ -24,7 +24,7 @@ defmodule Sling.Router do
       pipe_through [:api, :login_required]
       delete "/sessions", SessionController, :delete
       post "/sessions/refresh", SessionController, :refresh
-      get "/users/:id/rooms", UserController. :rooms
+      get "/users/:id/rooms", UserController, :rooms
       resources "/rooms", RoomController, only: [:index, :create]
       post "/rooms/:id/join", RoomController, :join
     # end

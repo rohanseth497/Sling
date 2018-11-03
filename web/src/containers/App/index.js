@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { authenticate, unauthenticate } from '../../actions/Session';
+import { authenticate, unauthenticate, logout } from '../../actions/Session';
 import Routes from '../../routes/Routes';
 
 class App extends React.Component {
@@ -17,9 +17,16 @@ class App extends React.Component {
     }
   }
 
+  handleLogout = () => {
+    const { logoutUser } = this.props;
+    logoutUser();
+  }
+
   render() {
     return (
-      <Routes />
+      <div>
+        <Routes />
+      </div>
     );
   }
 }
@@ -32,6 +39,7 @@ App.defaultProps = {
 App.propTypes = {
   authenticateUser: PropTypes.func.isRequired,
   unauthenticateUser: PropTypes.func.isRequired,
+  logoutUser: PropTypes.func.isRequired,
   // isAuthenticated: PropTypes.bool,
   // willAuthenticate: PropTypes.bool,
 };
@@ -41,5 +49,6 @@ export default withRouter(connect(
   {
     authenticateUser: authenticate,
     unauthenticateUser: unauthenticate,
+    logoutUser: logout,
   },
 )(App));

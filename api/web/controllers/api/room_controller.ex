@@ -48,6 +48,7 @@ defmodule Sling.RoomController do
         |> put_status(:created)
         |> render("show.json", %{room: room})
       {:error, changeset} ->
+        conn
         |> put_status(:unprocessable_entity)
         |> render(Sling.ChangesetView, "error.json", changeset: changeset)
     end
