@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { css, StyleSheet } from 'aphrodite';
+import PropTypes from 'prop-types';
 
 const styles = StyleSheet.create({
   sidebar: {
@@ -89,5 +90,13 @@ const Sidebar = ({ rooms, onLogoutClick }) => (
     </button>
   </div>
 );
+
+RoomLink.defaultProps = {
+  room: {},
+};
+
+RoomLink.propTypes = {
+  room: PropTypes.instanceOf(Object),
+};
 
 export default Sidebar;
