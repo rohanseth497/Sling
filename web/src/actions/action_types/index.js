@@ -9,7 +9,9 @@ export const SHOW_ALERT = 'SHOW_ALERT';
 
 // Room based types
 export const FETCH_ROOMS_SUCCESS = 'FETCH_ROOMS_SUCCESS';
+export const CREATE_ROOM_SUCCESS = 'CREATE_ROOM_SUCCESS';
 
 
 // User Rooms based types
 export const FETCH_USER_ROOMS_SUCCESS = 'FETCH_USER_ROOMS_SUCCESS';
+export const ROOM_JOINED = 'ROOM_JOINED';
