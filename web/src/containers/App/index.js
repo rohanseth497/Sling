@@ -4,6 +4,8 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { authenticate, unauthenticate, logout } from '../../actions/Session';
 import Routes from '../../routes/Routes';
+import Sidebar from '../../components/Sidebar';
+import Room from '../Room';
 
 class App extends React.Component {
   componentDidMount() {
@@ -23,8 +25,14 @@ class App extends React.Component {
   }
 
   render() {
+    const { isAuthenticated, currentUserRooms } = this.props;
     return (
-      <div>
+      <div style={{ display: 'flex', flex: '1' }}>
+        {/* {isAuthenticated && (
+          <Sidebar
+            rooms={currentUserRooms}
+          />
+        )} */}
         <Routes />
       </div>
     );
@@ -32,7 +40,8 @@ class App extends React.Component {
 }
 
 App.defaultProps = {
-  // isAuthenticated: false,
+  isAuthenticated: false,
+  currentUserRooms: [],
   // willAuthenticate: false,
 };
 
@@ -40,12 +49,16 @@ App.propTypes = {
   authenticateUser: PropTypes.func.isRequired,
   unauthenticateUser: PropTypes.func.isRequired,
   logoutUser: PropTypes.func.isRequired,
-  // isAuthenticated: PropTypes.bool,
+  isAuthenticated: PropTypes.bool,
+  currentUserRooms: PropTypes.instanceOf(Array),
   // willAuthenticate: PropTypes.bool,
 };
 
 export default withRouter(connect(
-  null,
+  state => ({
+    currentUserRooms: state.session.currentUserRooms,
+    isAuthenticated: state.session.isAuthenticated,
+  }),
   {
     authenticateUser: authenticate,
     unauthenticateUser: unauthenticate,
