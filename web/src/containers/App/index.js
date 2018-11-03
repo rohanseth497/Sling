@@ -28,11 +28,11 @@ class App extends React.Component {
     const { isAuthenticated, currentUserRooms } = this.props;
     return (
       <div style={{ display: 'flex', flex: '1' }}>
-        {/* {isAuthenticated && (
+        {isAuthenticated && (
           <Sidebar
             rooms={currentUserRooms}
           />
-        )} */}
+        )}
         <Routes />
       </div>
     );
