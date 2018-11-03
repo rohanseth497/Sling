@@ -23,4 +23,10 @@ defmodule Sling.UserController do
     end
   end
 
+  def rooms(conn, _params) do
+    current_user = Guardian.Plug.current_resource(conn)
+    rooms = Repo.all(assoc(current_user, :rooms))
+    render(conn, Sling.RoomView, "index.json", %{rooms: rooms})
+  end
+
 end
