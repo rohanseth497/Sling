@@ -29,12 +29,12 @@ class App extends React.Component {
     return (
       <Router>
         <Switch>
-          <div style={{ display: 'flex', flex: '1' }}>
+          <>
             <MatchAuthenticated exactly pattern="/" component={Home} {...authProps} />
             <RedirectAuthenticated pattern="/login" component={Login} {...authProps} />
             <RedirectAuthenticated pattern="/signup" component={Signup} {...authProps} />
             {/* <Route path="*" component={NotFound} /> */}
-          </div>
+          </>
         </Switch>
       </Router>
     );
