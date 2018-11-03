@@ -1,10 +1,10 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { authenticate, unauthenticate } from '../../actions/Session';
 import Home from '../Home';
-import NotFound from '../NotFound';
+// import NotFound from '../NotFound';
 import Login from '../Login';
 import Signup from '../Signup';
 import MatchAuthenticated from '../../components/MatchAuthenticated';

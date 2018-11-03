@@ -6,10 +6,6 @@ import LoginForm from '../../components/LoginForm';
 import Navbar from '../../components/Navbar';
 
 class Login extends React.Component {
-  static contextTypes = {
-    router: PropTypes.shape,
-  }
-
   handleLogin = (data) => {
     const { loginUser } = this.props;
     loginUser(data);

@@ -35,12 +35,12 @@ Input.defaultProps = {
 };
 
 Input.propTypes = {
-  input: PropTypes.shape,
+  input: PropTypes.instanceOf(Object),
   label: PropTypes.string,
   type: PropTypes.string,
   placeholder: PropTypes.string,
-  style: PropTypes.shape,
-  meta: PropTypes.shape,
+  style: PropTypes.instanceOf(Object),
+  meta: PropTypes.instanceOf(Object),
 };
 
 export default Input;
