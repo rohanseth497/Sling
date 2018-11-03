@@ -1,6 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { authenticate, unauthenticate } from '../../actions/Session';
 import Routes from '../../routes/Routes';
@@ -19,9 +19,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <Router>
-        <Routes />
-      </Router>
+      <Routes />
     );
   }
 }
@@ -38,10 +36,10 @@ App.propTypes = {
   // willAuthenticate: PropTypes.bool,
 };
 
-export default connect(
+export default withRouter(connect(
   null,
   {
     authenticateUser: authenticate,
     unauthenticateUser: unauthenticate,
   },
-)(App);
+)(App));

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const MatchAuthenticated = ({
@@ -13,6 +13,7 @@ const MatchAuthenticated = ({
     path={path}
     exact={exactly}
     render={(props) => {
+      console.log('Props', props);
       if (isAuthenticated) { return <Component {...props} />; }
       if (willAuthenticate) { return null; }
       if (!isAuthenticated) { return <Redirect to={{ pathname: '/login', state: { from: props.location } }} />; }
@@ -37,4 +38,4 @@ MatchAuthenticated.propTypes = {
   willAuthenticate: PropTypes.bool,
 };
 
-export default MatchAuthenticated;
+export default withRouter(MatchAuthenticated);

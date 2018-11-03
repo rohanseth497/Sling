@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const RedirectAuthenticated = ({
@@ -13,6 +13,7 @@ const RedirectAuthenticated = ({
     path={path}
     exact={exactly}
     render={(props) => {
+      console.log('Props', props);
       if (isAuthenticated) { return <Redirect to={{ pathname: '/', state: { from: props.location } }} />; }
       if (willAuthenticate) { return null; }
       if (!willAuthenticate && !isAuthenticated) { return <Component {...props} />; }
@@ -37,4 +38,4 @@ RedirectAuthenticated.propTypes = {
   willAuthenticate: PropTypes.bool,
 };
 
-export default RedirectAuthenticated;
+export default withRouter(RedirectAuthenticated);
