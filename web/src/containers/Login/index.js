@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import { login } from '../../actions/Session';
 import LoginForm from '../../components/LoginForm';
 import Navbar from '../../components/Navbar';
@@ -25,7 +26,7 @@ Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
 };
 
-export default connect(
+export default withRouter(connect(
   null,
   { loginUser: login },
-)(Login);
+)(Login));

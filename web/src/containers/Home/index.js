@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { logout } from '../../actions/Session';
 import Navbar from '../../components/Navbar';
@@ -43,10 +43,10 @@ Home.propTypes = {
   currentUser: PropTypes.instanceOf(Object),
 };
 
-export default connect(
+export default withRouter(connect(
   state => ({
     isAuthenticated: state.session.isAuthenticated,
     currentUser: state.session.currentUser,
   }),
   { logoutUser: logout },
-)(Home);
+)(Home));

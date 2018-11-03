@@ -4,16 +4,15 @@ import PropTypes from 'prop-types';
 
 const MatchAuthenticated = ({
   path,
-  exactly,
+  exact,
   isAuthenticated,
   willAuthenticate,
   component: Component,
 }) => (
   <Route
     path={path}
-    exact={exactly}
+    exact={exact}
     render={(props) => {
-      console.log('Props', props);
       if (isAuthenticated) { return <Component {...props} />; }
       if (willAuthenticate) { return null; }
       if (!isAuthenticated) { return <Redirect to={{ pathname: '/login', state: { from: props.location } }} />; }
@@ -25,7 +24,7 @@ const MatchAuthenticated = ({
 MatchAuthenticated.defaultProps = {
   path: '',
   component: () => {},
-  exactly: false,
+  exact: false,
   isAuthenticated: false,
   willAuthenticate: false,
 };
@@ -33,7 +32,7 @@ MatchAuthenticated.defaultProps = {
 MatchAuthenticated.propTypes = {
   path: PropTypes.string,
   component: PropTypes.func,
-  exactly: PropTypes.bool,
+  exact: PropTypes.bool,
   isAuthenticated: PropTypes.bool,
   willAuthenticate: PropTypes.bool,
 };

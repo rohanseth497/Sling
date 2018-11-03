@@ -16,7 +16,7 @@ const Routes = ({ isAuthenticated, willAuthenticate }) => {
   const authProps = { isAuthenticated, willAuthenticate };
   return (
     <Switch>
-      <MatchAuthenticated exactly path="/" component={Home} {...authProps} />
+      <MatchAuthenticated exact path="/" component={Home} {...authProps} />
       <RedirectAuthenticated path="/login" component={Login} {...authProps} />
       <RedirectAuthenticated path="/signup" component={Signup} {...authProps} />
       <Route component={NotFound} />
