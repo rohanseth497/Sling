@@ -40,7 +40,7 @@ Home.defaultProps = {
 Home.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
-  currentUser: PropTypes.shape,
+  currentUser: PropTypes.instanceOf(Object),
 };
 
 export default connect(
