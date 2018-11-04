@@ -25,7 +25,6 @@ class App extends React.Component {
 
   render() {
     const { isAuthenticated, currentUserRooms } = this.props;
-    console.log('CurrentRooms:', currentUserRooms);
     return (
       <div style={{ display: 'flex', flex: '1' }}>
         {isAuthenticated && (
