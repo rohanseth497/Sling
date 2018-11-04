@@ -1,8 +1,9 @@
 import React from 'react';
 
-const Room = props => (
+const Room = ({ match }) => (
   <div>
-    Room {props.params.id}
+    Room
+    {match.params.id}
   </div>
 );
 

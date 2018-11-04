@@ -25,8 +25,6 @@ export const createRoom = (data, handleRedirect) => {
     .then((response) => {
       dispatch({ type: CREATE_ROOM_SUCCESS, response });
       handleRedirect(response.data);
-      // TODO
-      // push user to '/r/${response.data.id} route
     });
 };
 
@@ -35,7 +33,5 @@ export const joinRoom = (roomId, handleRedirect) => {
     .then((response) => {
       dispatch({ type: ROOM_JOINED, response });
       handleRedirect(response.data);
-      // TODO
-      // push user to '/r/${response.data.id} route
     });
 };
