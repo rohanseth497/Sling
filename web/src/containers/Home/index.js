@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { css, StyleSheet } from 'aphrodite';
 import PropTypes from 'prop-types';
-import { fetchRooms, createRoom, joinRoom } from '../../actions/rooms';
+import { fetchRooms, createRoom, joinRoom, fetchUserRooms } from '../../actions/rooms';
 import Navbar from '../../components/Navbar';
 import NewRoomForm from '../../components/NewRoomForm';
 import RoomListItem from '../../components/RoomListItem';
@@ -19,8 +19,9 @@ const styles = StyleSheet.create({
 
 class Home extends React.Component {
   componentDidMount() {
-    const { fetchUserRooms } = this.props;
-    fetchUserRooms();
+    const { fetchAllRooms, getUserRooms, currentUser } = this.props;
+    fetchAllRooms();
+    getUserRooms(currentUser.id);
   }
 
   handleNewRoomSubmit = (data) => {
@@ -43,6 +44,7 @@ class Home extends React.Component {
       <RoomListItem
         key={room.id}
         room={room}
+        onRoomJoin={this.handleRoomJoin}
         currentUserRoomIds={currentUserRoomIds}
       />
     ));
@@ -66,30 +68,31 @@ class Home extends React.Component {
 }
 
 Home.defaultProps = {
-  isAuthenticated: false,
-  currentUser: {},
   currentUserRooms: [],
   rooms: [],
+  currentUser: {},
 };
 
 Home.propTypes = {
-  isAuthenticated: PropTypes.bool,
   currentUser: PropTypes.instanceOf(Object),
   currentUserRooms: PropTypes.instanceOf(Array),
   rooms: PropTypes.instanceOf(Array),
-  fetchUserRooms: PropTypes.func.isRequired,
+  fetchAllRooms: PropTypes.func.isRequired,
   createUserRoom: PropTypes.func.isRequired,
   userJoinRoom: PropTypes.func.isRequired,
+  getUserRooms: PropTypes.func.isRequired,
 };
 
 export default withRouter(connect(
   state => ({
-    isAuthenticated: state.session.isAuthenticated,
     currentUser: state.session.currentUser,
+    rooms: state.rooms.all,
+    currentUserRooms: state.rooms.currentUserRooms,
   }),
   {
     createUserRoom: createRoom,
-    fetchUserRooms: fetchRooms,
+    fetchAllRooms: fetchRooms,
     userJoinRoom: joinRoom,
+    getUserRooms: fetchUserRooms,
   },
 )(Home));
