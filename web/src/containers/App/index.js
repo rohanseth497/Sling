@@ -55,7 +55,7 @@ App.propTypes = {
 
 export default withRouter(connect(
   state => ({
-    currentUserRooms: state.session.currentUserRooms,
+    currentUserRooms: state.rooms.currentUserRooms,
     isAuthenticated: state.session.isAuthenticated,
   }),
   {
