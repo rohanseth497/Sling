@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { authenticate, unauthenticate, logout } from '../../actions/Session';
 import Routes from '../../routes/Routes';
 import Sidebar from '../../components/Sidebar';
-import Room from '../Room';
 
 class App extends React.Component {
   componentDidMount() {
@@ -31,6 +30,7 @@ class App extends React.Component {
         {isAuthenticated && (
           <Sidebar
             rooms={currentUserRooms}
+            onLogoutClick={this.handleLogout}
           />
         )}
         <Routes />
@@ -42,7 +42,6 @@ class App extends React.Component {
 App.defaultProps = {
   isAuthenticated: false,
   currentUserRooms: [],
-  // willAuthenticate: false,
 };
 
 App.propTypes = {
@@ -51,7 +50,6 @@ App.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
   currentUserRooms: PropTypes.instanceOf(Array),
-  // willAuthenticate: PropTypes.bool,
 };
 
 export default withRouter(connect(

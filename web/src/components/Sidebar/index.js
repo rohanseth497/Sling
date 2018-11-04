@@ -81,6 +81,7 @@ const Sidebar = ({ rooms, onLogoutClick }) => (
     </Link>
     <div style={{ flex: '1' }} />
     <button
+      type="button"
       onClick={() => onLogoutClick()}
       className={css(styles.link, styles.logoutButton)}
     >
@@ -97,6 +98,15 @@ RoomLink.defaultProps = {
 
 RoomLink.propTypes = {
   room: PropTypes.instanceOf(Object),
+};
+
+Sidebar.defaultProps = {
+  rooms: [],
+};
+
+Sidebar.propTypes = {
+  rooms: PropTypes.instanceOf(Array),
+  onLogoutClick: PropTypes.func.isRequired,
 };
 
 export default Sidebar;

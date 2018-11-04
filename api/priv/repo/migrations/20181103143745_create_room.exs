@@ -3,8 +3,8 @@ defmodule Sling.Repo.Migrations.CreateRoom do
 
   def change do
     create table(:rooms) do
-      add :name, :string
-      add :topic, :string
+      add :name, :string, null: false
+      add :topic, :string, default: ""
 
       timestamps()
     end
