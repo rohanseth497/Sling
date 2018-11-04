@@ -31,12 +31,17 @@ class Home extends React.Component {
 
   handleNewRoomSubmit = (data) => {
     const { createUserRoom } = this.props;
-    createUserRoom(data);
+    createUserRoom(data, this.handleRedirect);
   };
 
   handleRoomJoin = (roomId) => {
     const { userJoinRoom } = this.props;
-    userJoinRoom(roomId);
+    userJoinRoom(roomId, this.handleRedirect);
+  }
+
+  handleRedirect = (data) => {
+    const { history } = this.props;
+    history.push(`/r/${data.id}`);
   }
 
 
@@ -76,9 +81,11 @@ Home.defaultProps = {
   currentUserRooms: [],
   rooms: [],
   currentUser: {},
+  history: {},
 };
 
 Home.propTypes = {
+  history: PropTypes.instanceOf(Object),
   currentUser: PropTypes.instanceOf(Object),
   currentUserRooms: PropTypes.instanceOf(Array),
   rooms: PropTypes.instanceOf(Array),

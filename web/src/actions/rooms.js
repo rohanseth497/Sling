@@ -20,19 +20,21 @@ export const fetchUserRooms = (userId) => {
     });
 };
 
-export const createRoom = (data) => {
+export const createRoom = (data, handleRedirect) => {
   return dispatch => api.post('/rooms', data)
     .then((response) => {
       dispatch({ type: CREATE_ROOM_SUCCESS, response });
+      handleRedirect(response.data);
       // TODO
       // push user to '/r/${response.data.id} route
     });
 };
 
-export const joinRoom = (roomId) => {
+export const joinRoom = (roomId, handleRedirect) => {
   return dispatch => api.post(`/rooms/${roomId}/join`)
     .then((response) => {
       dispatch({ type: ROOM_JOINED, response });
+      handleRedirect(response.data);
       // TODO
       // push user to '/r/${response.data.id} route
     });
