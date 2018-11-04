@@ -4,6 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { logout } from '../../actions/Session';
 import Navbar from '../../components/Navbar';
+import RoomListItem from '../../components/RoomListItem';
 
 class Home extends React.Component {
   handleLogout = () => {
