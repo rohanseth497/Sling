@@ -3,7 +3,12 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { css, StyleSheet } from 'aphrodite';
 import PropTypes from 'prop-types';
-import { fetchRooms, createRoom, joinRoom, fetchUserRooms } from '../../actions/rooms';
+import {
+  fetchRooms,
+  createRoom,
+  joinRoom,
+  fetchUserRooms,
+} from '../../actions/rooms';
 import Navbar from '../../components/Navbar';
 import NewRoomForm from '../../components/NewRoomForm';
 import RoomListItem from '../../components/RoomListItem';

@@ -24,6 +24,8 @@ export const createRoom = (data) => {
   return dispatch => api.post('/rooms', data)
     .then((response) => {
       dispatch({ type: CREATE_ROOM_SUCCESS, response });
+      // TODO
+      // push user to '/r/${response.data.id} route
     });
 };
 
@@ -31,5 +33,7 @@ export const joinRoom = (roomId) => {
   return dispatch => api.post(`/rooms/${roomId}/join`)
     .then((response) => {
       dispatch({ type: ROOM_JOINED, response });
+      // TODO
+      // push user to '/r/${response.data.id} route
     });
 };
