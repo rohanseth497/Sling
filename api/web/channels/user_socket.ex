@@ -9,13 +9,10 @@ defmodule Sling.UserSocket do
   def connect(%{"token" => token}, socket) do
     case Guardian.decode_and_verify(token) do
       {:ok, claims} ->
-        case Guardian.resource_from_token(claims["sub"]) do
+        case Guardian.resource_from_claims(claims) do
           {:ok, user} ->
-            IO.puts "+++"
-            IO.inspect(user);
             {:ok, assign(socket, :current_user, user)}
-          {:error, _reason} ->
-            IO.puts "Error"
+          {:error, reason} ->
             :error
         end
       {:error, _reason} ->

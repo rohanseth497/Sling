@@ -28,7 +28,7 @@ const setCurrentUser = (dispatch, response) => {
   localStorage.setItem('token', JSON.stringify(response.meta.token));
   dispatch({ type: AUTHENTICATION_SUCCESS, response });
   dispatch(fetchUserRooms(response.data.id));
-  // connectToSocket(dispatch);
+  connectToSocket(dispatch);
 };
 
 export const login = (data) => {
