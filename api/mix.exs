@@ -20,7 +20,7 @@ defmodule Sling.Mixfile do
   def application do
     [
       mod: {Sling, []},
-      extra_applications: [:logger, :comeonin]
+      extra_applications: [:logger, :comeonin, :scrivener_ecto]
     ]
   end
 
@@ -43,7 +43,8 @@ defmodule Sling.Mixfile do
       {:comeonin, "~> 4.1.1"},
       {:bcrypt_elixir, "~> 1.0"},
       {:guardian, "~> 1.1.1"},
-      {:cors_plug, "~> 1.5"}
+      {:cors_plug, "~> 1.5"},
+      {:scrivener_ecto, "~> 2.0"}
     ]
   end
 
