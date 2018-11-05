@@ -4,17 +4,23 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { connectToChannel, leaveChannel } from '../../actions/room';
 
-// const Room = ({ match }) => (
-//   <div>
-//     Room
-//     {match.params.id}
-//   </div>
-// );
-
 class Room extends React.Component {
   componentDidMount() {
     const { userConnectToChannel, socket, match } = this.props;
     userConnectToChannel(socket, match.params.id);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { match, socket } = this.props;
+    if (nextProps.match.params.id !== match.params.id) {
+      const { userLeaveChannel, userConnectToChannel, channel } = this.props;
+      userLeaveChannel(channel);
+      userConnectToChannel(nextProps.socket, nextProps.match.params.id);
+    }
+    if (!socket && nextProps.socket) {
+      const { userConnectToChannel } = this.props;
+      userConnectToChannel(nextProps.socket, nextProps.match.params.id);
+    }
   }
 
   componentWillUnmount() {
