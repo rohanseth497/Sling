@@ -3,12 +3,14 @@ import {
   AUTHENTICATION_REQUEST,
   AUTHENTICATION_FAILURE,
   LOGOUT,
+  SOCKET_CONNECTED,
 } from '../actions/action_types';
 
 const initialState = {
   isAuthenticated: false,
   willAuthenticate: true,
   currentUser: {},
+  socket: null,
 };
 
 export default function (state = initialState, action) {
@@ -36,6 +38,11 @@ export default function (state = initialState, action) {
         isAuthenticated: false,
         willAuthenticate: false,
         currentUser: {},
+      };
+    case SOCKET_CONNECTED:
+      return {
+        ...state,
+        socket: action.socket,
       };
     default:
       return state;

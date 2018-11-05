@@ -7,7 +7,6 @@ import {
   fetchRooms,
   createRoom,
   joinRoom,
-  fetchUserRooms,
 } from '../../actions/rooms';
 import Navbar from '../../components/Navbar';
 import NewRoomForm from '../../components/NewRoomForm';
@@ -24,9 +23,8 @@ const styles = StyleSheet.create({
 
 class Home extends React.Component {
   componentDidMount() {
-    const { fetchAllRooms, getUserRooms, currentUser } = this.props;
+    const { fetchAllRooms } = this.props;
     fetchAllRooms();
-    getUserRooms(currentUser.id);
   }
 
   handleNewRoomSubmit = (data) => {
@@ -80,19 +78,16 @@ class Home extends React.Component {
 Home.defaultProps = {
   currentUserRooms: [],
   rooms: [],
-  currentUser: {},
   history: {},
 };
 
 Home.propTypes = {
   history: PropTypes.instanceOf(Object),
-  currentUser: PropTypes.instanceOf(Object),
   currentUserRooms: PropTypes.instanceOf(Array),
   rooms: PropTypes.instanceOf(Array),
   fetchAllRooms: PropTypes.func.isRequired,
   createUserRoom: PropTypes.func.isRequired,
   userJoinRoom: PropTypes.func.isRequired,
-  getUserRooms: PropTypes.func.isRequired,
 };
 
 export default withRouter(connect(
@@ -105,6 +100,5 @@ export default withRouter(connect(
     createUserRoom: createRoom,
     fetchAllRooms: fetchRooms,
     userJoinRoom: joinRoom,
-    getUserRooms: fetchUserRooms,
   },
 )(Home));

@@ -15,3 +15,6 @@ export const CREATE_ROOM_SUCCESS = 'CREATE_ROOM_SUCCESS';
 // User Rooms based types
 export const FETCH_USER_ROOMS_SUCCESS = 'FETCH_USER_ROOMS_SUCCESS';
 export const ROOM_JOINED = 'ROOM_JOINED';
+
+// Socket based types
+export const SOCKET_CONNECTED = 'SOCKET_CONNECTED';

@@ -11,8 +11,11 @@ defmodule Sling.UserSocket do
       {:ok, claims} ->
         case Guardian.resource_from_token(claims["sub"]) do
           {:ok, user} ->
+            IO.puts "+++"
+            IO.inspect(user);
             {:ok, assign(socket, :current_user, user)}
           {:error, _reason} ->
+            IO.puts "Error"
             :error
         end
       {:error, _reason} ->
@@ -25,5 +28,5 @@ defmodule Sling.UserSocket do
   end
 
 
-  def id(_socket), do: nil
+  def id(socket), do: "users_socket:#{socket.assigns.current_user.id}"
 end
