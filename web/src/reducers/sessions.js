@@ -38,6 +38,7 @@ export default function (state = initialState, action) {
         isAuthenticated: false,
         willAuthenticate: false,
         currentUser: {},
+        socket: null,
       };
     case SOCKET_CONNECTED:
       return {

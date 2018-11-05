@@ -12,7 +12,7 @@ defmodule Sling.UserSocket do
         case Guardian.resource_from_claims(claims) do
           {:ok, user} ->
             {:ok, assign(socket, :current_user, user)}
-          {:error, reason} ->
+          {:error, _reason} ->
             :error
         end
       {:error, _reason} ->
