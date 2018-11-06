@@ -32,13 +32,12 @@ export const leaveChannel = (channel) => {
 };
 
 export const createMessage = (channel, data) => {
-  return (dispatch) => {
-    new Promise((resolve, reject) => {
-      channel.push('new_message', data)
-        .receive('ok', () => resolve(
-          dispatch(reset('newMessage')),
-        ))
-        .receive('error', () => reject());
-    });
-  };
+  console.log('Data: ', data);
+  return dispatch => new Promise((resolve, reject) => {
+    channel.push('new_message', data)
+      .receive('ok', () => resolve(
+        dispatch(reset('newMessage')),
+      ))
+      .receive('error', () => reject());
+  });
 };

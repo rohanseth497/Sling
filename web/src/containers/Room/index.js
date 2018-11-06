@@ -32,7 +32,7 @@ class Room extends React.Component {
   }
 
   handleMessageCreate = (data) => {
-    const { userCreateMessage, channel } = this.prop;
+    const { userCreateMessage, channel } = this.props;
     userCreateMessage(channel, data);
   }
 

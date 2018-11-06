@@ -1,4 +1,3 @@
-
 defmodule Sling.RoomChannel do
   use Sling.Web, :channel
 
@@ -13,7 +12,7 @@ defmodule Sling.RoomChannel do
       |> order_by([desc: :inserted_at, desc: :id])
       |> preload(:user)
       |> Sling.Repo.paginate()
-
+      IO.puts "++++"
     response = %{
       room: Phoenix.View.render_one(room, Sling.RoomView, "room.json"),
       messages: Phoenix.View.render_many(page.entries, Sling.MessageView, "message.json"),
@@ -24,10 +23,13 @@ defmodule Sling.RoomChannel do
   end
 
   def handle_in("new_message", params, socket) do
+    IO.puts "++++"
     changeset =
       socket.assigns.room
       |> build_assoc(:messages, user_id: socket.assigns.current_user.id)
       |> Message.changeset(params)
+      IO.puts "++++"
+      IO.inspect(changeset)
 
     case Repo.insert(changeset) do
       {:ok, message} ->

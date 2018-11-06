@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
 });
 
 class MessageForm extends React.Component {
-  handleSubmitForm = (data) => {
+  handleSubmit = (data) => {
     const { onSubmit } = this.props;
     onSubmit(data);
   }
@@ -31,7 +31,7 @@ class MessageForm extends React.Component {
   render() {
     const { handleSubmit, submitting } = this.props;
     return (
-      <form onSubmit={handleSubmit(this.handleSubmitForm)} className={css(styles.form)}>
+      <form onSubmit={handleSubmit(this.handleSubmit)} className={css(styles.form)}>
         <div className="input-group">
           <Field
             name="text"
@@ -41,7 +41,7 @@ class MessageForm extends React.Component {
           />
           <div className="input-group-btn">
             <button
-              type="button"
+              type="submit"
               disabled={submitting}
               className={`btn ${css(styles.button)}`}
             >
