@@ -28,9 +28,23 @@ defmodule Sling.RoomChannel do
       socket.assigns.room
       |> build_assoc(:messages, user_id: socket.assigns.current_user.id)
       |> Message.changeset(params)
+
+    case Repo.insert(changeset) do
+      {:ok, message} ->
+        broadcast_message(socket, message)
+        {:reply, :ok, socket}
+      {:error, changeset} ->
+        {:reply, {:error, Phoenix.View.render(Sling.ChangesetView, "error.json", changeset: changeset)}, socket}
+    end
   end
 
   def terminate(_reason, socket) do
     {:ok, socket}
+  end
+
+  defp broadcast_message(socket, message) do
+    message = Repo.preload(message, :user)
+    rendered_message = Phoenix.View.render_one(message, Sling.MessageView, "message.json")
+    broadcast!(socket, "message_created", rendered_message)
   end
 end
