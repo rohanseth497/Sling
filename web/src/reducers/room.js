@@ -2,12 +2,14 @@ import {
   ROOM_CONNECTED_TO_CHANNEL,
   USER_LEFT_ROOM,
   MESSAGE_CREATED,
+  ROOM_PRESENCE_UPDATE,
 } from '../actions/action_types';
 
 const initialState = {
   channel: null,
   currentRoom: {},
   messages: [],
+  presentUsers: [],
 };
 
 export default function (state = initialState, action) {
@@ -28,6 +30,11 @@ export default function (state = initialState, action) {
           ...state.messages,
           action.message,
         ],
+      };
+    case ROOM_PRESENCE_UPDATE:
+      return {
+        ...state,
+        presentUsers: action.presentUsers,
       };
     default:
       return state;
