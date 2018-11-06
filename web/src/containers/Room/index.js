@@ -6,6 +6,7 @@ import { connectToChannel, leaveChannel, createMessage } from '../../actions/roo
 import MessageList from '../../components/MessageList';
 import MessageForm from '../../components/MessageForm';
 import RoomNavbar from '../../components/RoomNavBar';
+import RoomSidebar from '../../components/RoomSidebar';
 
 class Room extends React.Component {
   componentDidMount() {
@@ -37,9 +38,19 @@ class Room extends React.Component {
   }
 
   render() {
-    const { room, messages } = this.props;
+    const {
+      room,
+      messages,
+      currentUser,
+      presentUsers,
+    } = this.props;
     return (
       <div style={{ display: 'flex', height: '100vh' }}>
+        <RoomSidebar
+          room={room}
+          currentUser={currentUser}
+          presentUsers={presentUsers}
+        />
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <RoomNavbar room={room} />
           <MessageList messages={messages} />
@@ -56,6 +67,8 @@ Room.defaultProps = {
   room: {},
   match: {},
   messages: [],
+  presentUsers: [],
+  currentUser: {},
 };
 
 Room.propTypes = {
@@ -64,6 +77,8 @@ Room.propTypes = {
   room: PropTypes.instanceOf(Object),
   match: PropTypes.instanceOf(Object),
   messages: PropTypes.instanceOf(Array),
+  presentUsers: PropTypes.instanceOf(Array),
+  currentUser: PropTypes.instanceOf(Object),
   userConnectToChannel: PropTypes.func.isRequired,
   userLeaveChannel: PropTypes.func.isRequired,
   userCreateMessage: PropTypes.func.isRequired,
@@ -75,6 +90,8 @@ export default withRouter(connect(
     socket: state.session.socket,
     channel: state.room.channel,
     messages: state.room.messages,
+    presentUsers: state.room.presentUsers,
+    currentUser: state.session.currentUser,
   }),
   {
     userConnectToChannel: connectToChannel,
