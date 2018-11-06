@@ -2,7 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { connectToChannel, leaveChannel } from '../../actions/room';
+import { connectToChannel, leaveChannel, createMessage } from '../../actions/room';
+import MessageList from '../../components/MessageList';
+import MessageForm from '../../components/MessageForm';
+import RoomNavbar from '../../components/RoomNavBar';
 
 class Room extends React.Component {
   componentDidMount() {
@@ -28,11 +31,20 @@ class Room extends React.Component {
     userLeaveChannel(channel);
   }
 
+  handleMessageCreate = (data) => {
+    const { userCreateMessage, channel } = this.prop;
+    userCreateMessage(channel, data);
+  }
+
   render() {
-    const { room } = this.props;
+    const { room, messages } = this.props;
     return (
-      <div>
-        {room.name}
+      <div style={{ display: 'flex', height: '100vh' }}>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <RoomNavbar room={room} />
+          <MessageList messages={messages} />
+          <MessageForm onSubmit={this.handleMessageCreate} />
+        </div>
       </div>
     );
   }
@@ -43,6 +55,7 @@ Room.defaultProps = {
   channel: {},
   room: {},
   match: {},
+  messages: [],
 };
 
 Room.propTypes = {
@@ -50,8 +63,10 @@ Room.propTypes = {
   channel: PropTypes.instanceOf(Object),
   room: PropTypes.instanceOf(Object),
   match: PropTypes.instanceOf(Object),
+  messages: PropTypes.instanceOf(Array),
   userConnectToChannel: PropTypes.func.isRequired,
   userLeaveChannel: PropTypes.func.isRequired,
+  userCreateMessage: PropTypes.func.isRequired,
 };
 
 export default withRouter(connect(
@@ -59,9 +74,11 @@ export default withRouter(connect(
     room: state.room.currentRoom,
     socket: state.session.socket,
     channel: state.room.channel,
+    messages: state.room.messages,
   }),
   {
     userConnectToChannel: connectToChannel,
     userLeaveChannel: leaveChannel,
+    userCreateMessage: createMessage,
   },
 )(Room));
