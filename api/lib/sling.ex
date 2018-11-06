@@ -12,6 +12,7 @@ defmodule Sling do
       supervisor(Sling.Repo, []),
       # Start the endpoint when the application starts
       supervisor(Sling.Endpoint, []),
+      supervisor(Sling.Presence, []),
       # Start your own worker by calling: Sling.Worker.start_link(arg1, arg2, arg3)
       # worker(Sling.Worker, [arg1, arg2, arg3]),
     ]
