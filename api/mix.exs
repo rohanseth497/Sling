@@ -36,7 +36,7 @@ defmodule Sling.Mixfile do
       {:phoenix, "~> 1.3.3"},
       {:phoenix_pubsub, "~> 1.0"},
       {:phoenix_ecto, "~> 3.2"},
-      {:postgrex, ">= 0.0.0"},
+      {:postgrex, ">= 0.10.0"},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:plug_cowboy, "~> 1.0"},
@@ -44,6 +44,7 @@ defmodule Sling.Mixfile do
       {:bcrypt_elixir, "~> 1.0"},
       {:guardian, "~> 1.1.1"},
       {:cors_plug, "~> 1.5"},
+      {:ecto_sql, "~> 3.0.0"},
       {:scrivener_ecto, "~> 2.0"}
     ]
   end
