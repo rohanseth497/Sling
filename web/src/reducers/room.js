@@ -1,11 +1,13 @@
 import {
   ROOM_CONNECTED_TO_CHANNEL,
   USER_LEFT_ROOM,
+  MESSAGE_CREATED,
 } from '../actions/action_types';
 
 const initialState = {
   channel: null,
   currentRoom: {},
+  messages: [],
 };
 
 export default function (state = initialState, action) {
@@ -15,9 +17,18 @@ export default function (state = initialState, action) {
         ...state,
         channel: action.channel,
         currentRoom: action.response.room,
+        messages: action.response.messages.reverse(),
       };
     case USER_LEFT_ROOM:
       return initialState;
+    case MESSAGE_CREATED:
+      return {
+        ...state,
+        messages: [
+          ...state.messages,
+          action.message,
+        ],
+      };
     default:
       return state;
   }

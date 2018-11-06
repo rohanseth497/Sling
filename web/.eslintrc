@@ -3,6 +3,7 @@
   "plugins": ["react", "flowtype"],
   "extends": ["airbnb", "plugin:flowtype/recommended"],
   "rules": {
+    "no-new": 0,
     "react/jsx-filename-extension": 0,
     "import/prefer-default-export": 0,
     "react/no-unused-prop-types": 0,

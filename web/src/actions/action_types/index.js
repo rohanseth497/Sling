@@ -20,3 +20,6 @@ export const ROOM_JOINED = 'ROOM_JOINED';
 
 // Socket based types
 export const SOCKET_CONNECTED = 'SOCKET_CONNECTED';
+
+// Message based types
+export const MESSAGE_CREATED = 'MESSAGE_CREATED';
