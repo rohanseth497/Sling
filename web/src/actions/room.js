@@ -1,10 +1,14 @@
 import { reset } from 'redux-form';
 import { Presence } from 'phoenix';
+import api from '../api';
 import {
   ROOM_CONNECTED_TO_CHANNEL,
   USER_LEFT_ROOM,
   MESSAGE_CREATED,
   ROOM_PRESENCE_UPDATE,
+  FETCH_MESSAGES_SUCCESS,
+  FETCH_MESSAGES_REQUEST,
+  FETCH_MESSAGES_FAILURE,
 } from './action_types';
 
 const syncPresentUsers = (dispatch, presences) => {
@@ -61,4 +65,17 @@ export const createMessage = (channel, data) => {
       ))
       .receive('error', () => reject());
   });
+};
+
+export const loadOlderMessages = (roomId, params) => {
+  return (dispatch) => {
+    dispatch({ type: FETCH_MESSAGES_REQUEST });
+    return api.fetch(`/rooms/${roomId}/messages`, params)
+      .then((response) => {
+        dispatch({ type: FETCH_MESSAGES_SUCCESS, response });
+      })
+      .catch(() => {
+        dispatch({ type: FETCH_MESSAGES_FAILURE });
+      });
+  };
 };
