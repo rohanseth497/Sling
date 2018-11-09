@@ -6,7 +6,7 @@ import Avatar from '../Avatar';
 const Message = ({ message: { text, inserted_at, user } }) => {
   return (
     <div style={{ display: 'flex', marginBottom: '10px' }}>
-      <Avatar email={user.email} style={{ marginRight: '10px' }} />
+      <Avatar email={user.email} style={{ marginRight: '10px' }} size={35} />
       <div>
         <div style={{ lineHeight: '1.2' }}>
           <b style={{ marginRight: '8px', fontSize: '14px' }}>{user.username}</b>
