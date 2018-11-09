@@ -30,7 +30,7 @@ export default function (state = initialState, action) {
         channel: action.channel,
         currentRoom: action.response.room,
         messages: action.response.messages.reverse(),
-        agination: action.response.pagination,
+        pagination: action.response.pagination,
       };
     case USER_LEFT_ROOM:
       return initialState;

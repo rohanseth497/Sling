@@ -2,13 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { connectToChannel, leaveChannel, createMessage } from '../../actions/room';
+import {
+  connectToChannel,
+  leaveChannel,
+  createMessage,
+  loadOlderMessages,
+} from '../../actions/room';
 import MessageList from '../../components/MessageList';
 import MessageForm from '../../components/MessageForm';
 import RoomNavbar from '../../components/RoomNavBar';
 import RoomSidebar from '../../components/RoomSidebar';
 
 class Room extends React.Component {
+  constructor(props) {
+    super(props);
+    this.messageList = React.createRef();
+  }
+
   componentDidMount() {
     const { userConnectToChannel, socket, match } = this.props;
     userConnectToChannel(socket, match.params.id);
@@ -35,6 +45,12 @@ class Room extends React.Component {
   handleMessageCreate = (data) => {
     const { userCreateMessage, channel } = this.props;
     userCreateMessage(channel, data);
+    this.messageList.current.scrollToBottom();
+  }
+
+  handleLoadMore = () => {
+    const { loadRoomOlderMessages, match, messages } = this.props;
+    loadRoomOlderMessages(match.params.id, { last_seen_id: messages[0].id });
   }
 
   render() {
@@ -43,7 +59,12 @@ class Room extends React.Component {
       messages,
       currentUser,
       presentUsers,
+      pagination,
+      loadingOlderMessages,
     } = this.props;
+
+    const moreMessages = pagination.total_pages > pagination.page_number;
+
     return (
       <div style={{ display: 'flex', height: '100vh' }}>
         <RoomSidebar
@@ -53,7 +74,13 @@ class Room extends React.Component {
         />
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <RoomNavbar room={room} />
-          <MessageList messages={messages} />
+          <MessageList
+            messages={messages}
+            moreMessages={moreMessages}
+            onLoadMore={this.handleLoadMore}
+            loadingOlderMessages={loadingOlderMessages}
+            ref={this.messageList}
+          />
           <MessageForm onSubmit={this.handleMessageCreate} />
         </div>
       </div>
@@ -69,6 +96,8 @@ Room.defaultProps = {
   messages: [],
   presentUsers: [],
   currentUser: {},
+  pagination: {},
+  loadingOlderMessages: false,
 };
 
 Room.propTypes = {
@@ -79,9 +108,12 @@ Room.propTypes = {
   messages: PropTypes.instanceOf(Array),
   presentUsers: PropTypes.instanceOf(Array),
   currentUser: PropTypes.instanceOf(Object),
+  pagination: PropTypes.instanceOf(Object),
+  loadingOlderMessages: PropTypes.bool,
   userConnectToChannel: PropTypes.func.isRequired,
   userLeaveChannel: PropTypes.func.isRequired,
   userCreateMessage: PropTypes.func.isRequired,
+  loadRoomOlderMessages: PropTypes.func.isRequired,
 };
 
 export default withRouter(connect(
@@ -92,10 +124,13 @@ export default withRouter(connect(
     messages: state.room.messages,
     presentUsers: state.room.presentUsers,
     currentUser: state.session.currentUser,
+    pagination: state.room.pagination,
+    loadingOlderMessages: state.room.loadingOlderMessages,
   }),
   {
     userConnectToChannel: connectToChannel,
     userLeaveChannel: leaveChannel,
     userCreateMessage: createMessage,
+    loadRoomOlderMessages: loadOlderMessages,
   },
 )(Room));
