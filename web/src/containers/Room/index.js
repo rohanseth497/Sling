@@ -20,6 +20,7 @@ class Room extends React.Component {
   }
 
   componentDidMount() {
+    console.log('mount room');
     const { userConnectToChannel, socket, match } = this.props;
     userConnectToChannel(socket, match.params.id);
   }
@@ -38,6 +39,7 @@ class Room extends React.Component {
   }
 
   componentWillUnmount() {
+    console.log('unmount room');
     const { userLeaveChannel, channel } = this.props;
     userLeaveChannel(channel);
   }
@@ -116,7 +118,7 @@ Room.propTypes = {
   loadRoomOlderMessages: PropTypes.func.isRequired,
 };
 
-export default withRouter(connect(
+export default connect(
   state => ({
     room: state.room.currentRoom,
     socket: state.session.socket,
@@ -133,4 +135,4 @@ export default withRouter(connect(
     userCreateMessage: createMessage,
     loadRoomOlderMessages: loadOlderMessages,
   },
-)(Room));
+)(Room);
